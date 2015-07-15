@@ -102,6 +102,9 @@ function sendlogs(field, value){
 	$.post( server+'/logs', { field: field, value: value } );
 }
 
+if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+	$("<style type='text/css'> .modal{bottom: auto; top:0;} </style>").appendTo("head");
+}
 // handle answer
 function done(){
 	clear();
@@ -126,7 +129,7 @@ function herobackground(status){
 		// 	insertinput('herobackground');
 		// });
 	}else if(status == 3){
-		str = "Almost done! I think it needs a bit of a kick, you know what I mean?. I'd like to put an image header under the welcome message, that would seperate me from the other web geeks out there. Right?";
+		str = "Almost done! I think it needs a bit of a kick, you know what I mean? I'd like to put an image header under the welcome message, that would seperate me from the other web geeks out there. Right?";
 		typing(str, function(){
 			insertinput('herook');
 		});
