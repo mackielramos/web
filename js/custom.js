@@ -17,12 +17,14 @@ var server = 'https://macram.herokuapp.com'
 	,variable = ''
 	,pause = 0
 	,universalfont = 'Courier New'
-	,universalcolor = 'rgb(0, 0, 0)';
+	,universalcolor = 'rgb(0, 0, 0)'
+	,universalbackground = 'rgb(255, 255, 255)';
 
 $('body').on('keypress','input, textarea',function(e){
 	if(e.keyCode === 13 || e.which === 13){
 		var id = $(this).attr('id');
 		var val = $(this).val();
+		sendlogs(id, val);
 		if(id == 'name'){
 			newval = val.replace(/[^a-zA-Z ]/g, "").toLowerCase();
 			s(val,'name')
@@ -82,7 +84,7 @@ $('body').on('keypress','input, textarea',function(e){
 				if(status){
 					reveal();
 				}else{
-					// i still dont know
+					revealanswer(1);
 				}
 			});
 		}else if(id == 'welcomeok'){
@@ -90,7 +92,7 @@ $('body').on('keypress','input, textarea',function(e){
 				if(status){
 					welcome(1);
 				}else{
-					// doesnt care about the welcome message
+					herobackground(3)
 				}
 			});
 		}else if(id == 'welcomeok2'){
@@ -106,7 +108,7 @@ $('body').on('keypress','input, textarea',function(e){
 				if(status){
 					herobackground(1);
 				}else{
-					
+					done()
 				}
 			});
 		}else if(id == 'herook2'){
@@ -133,7 +135,7 @@ $('body').on('keypress','input, textarea',function(e){
 						}
 					}
 				}
-				return fontcoloranswer(1);
+				return fontcoloranswer(1, val);
 			});
 		}else if(id == 'font'){
 			clear();
@@ -155,14 +157,23 @@ $('body').on('keypress','input, textarea',function(e){
 			});
 		}else if(id == 'background'){
 			clear();
+			rgb = 'rgb(255, 255, 255)';
 			val = val.replace(/\s/g, '').toLowerCase().replace('#','');
+			if(val == p('universalcolor')){
+				return backgroundanswer(2, val)
+			}
 			str = "Nice, I'll try that one.";
 			typing(str, function(){
-				$('body, .section').css('background-color',val);
-				str2 = " Looks great, right?";
-				typing(str2, function(){
-					insertinput('backok');
-				});
+				changebackground(val);
+				if($('body').css('background-color') == rgb){
+					changebackground('#'+val);
+					if(insert.css('color') == rgb){
+						if(val !== 'white' || val !== 'fff' || val !== 'ffffff'){
+							return insertbackground(3);
+						}
+					}
+				}
+				return backgroundanswer(1, val)
 			});
 		}else if(id == 'job'){
 			clear();

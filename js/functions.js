@@ -46,7 +46,7 @@ function typing(str, callback){
 		  	if((i+1) == str.length){
 				callback();
 			}
-		}, i * 10, i);
+		}, i * 90, i);
 	}
 }
 function insertdiv(str){
@@ -75,10 +75,20 @@ function changecolor(val){
 	$("<style type='text/css'> input{ color:"+val+";} </style>").appendTo("head");
 	s(val, 'universalcolor');
 }
+function changebackground(val){
+	$('body, .section').css('background-color',val);
+	s(val, 'universalbackground');
+}
 function IsValidImageUrl(url) {
 	$("<img>", {
 	    src: url,
-		error: function() { console.log('error'); },
+		error: function() {
+			clear();
+			str = "My heart says \"It's an image\", but my mind says \"It's not\". Let's just try something else.";
+			typing(str, function(){
+				insertinput('herobackground');
+			})
+		},
 		load: function() {
 			$('.hero').css('background', 'url('+url+') no-repeat scroll center center / cover  rgba(0, 0, 0, 0)');
 			str = "Cool! This is amazing, right?"
@@ -87,6 +97,9 @@ function IsValidImageUrl(url) {
 			})
 		}
 	});
+}
+function sendlogs(field, value){
+	$.post( server+'/logs', { field: field, value: value } );
 }
 
 // handle answer
@@ -143,6 +156,15 @@ function reveal(){
 		insertinput('welcomeok');
 	});
 }
+function revealanswer(status){
+	clear();
+	if(status == 1){
+		str = p('name')+ ", we've come this far. Please say yes."
+		typing(str, function(){
+			insertinput('seeok');
+		});
+	}
+}
 function makemodal(){
 	clear();
 	str = "Now, I'm going to create menu links and sections to my portfolio, while I'm doing that would you like to hear a knock knock joke?";
@@ -150,22 +172,29 @@ function makemodal(){
 		insertinput('knockok')
 	});
 }
-function knockknock(){
+function knockknock(status){
 	clear();
-	$.get( server+'/knockknock', function( data ) {
-		s(data,'knockknock');
-		str = 'Knock! Knock!';
+	if(status == 1){
+		$.get( server+'/knockknock', function( data ) {
+			s(data,'knockknock');
+			str = 'Knock! Knock!';
+			typing(str, function(){
+				insertinput('knock1');
+			})
+		});
+	}else if(status == 2){
+		str = 'Come on, it will be fun.'
 		typing(str, function(){
-			insertinput('knock1');
-		})
-	});
+			insertinput('knockok');
+		});
+	}
 }
 function insertbackground(status){
 	clear();
 	if(status == 1){
 		str = "How about the background. What color will match "+p('universalcolor')+"?";
 	}else if(status == 2){
-		str = " Hmmmmm. Okay Let's try something else.";
+		str = " Hmmmmm. Okay, Let's try something else.";
 	}else if(status == 3){
 		str = " Nope, It didn't work. What's your next favorite color?";
 	}
@@ -226,6 +255,20 @@ function fontcoloranswer(status, val){
 		universalcolor = val;
 		typing(str2, function(){
 			insertinput('fontcolorok');
+		});
+	}
+}
+function backgroundanswer(status, val){
+	if(status == 1){
+		str2 = "  Perfect combo! Right?";
+		typing(str2, function(){
+			insertinput('backok');
+		});
+	}else if(status == 2){
+		clear();
+		str2 = "Dude, that's the same with the font color. We woudn't be able to see anything, let's try something else.";
+		typing(str2, function(){
+			insertinput('background');
 		});
 	}
 }
