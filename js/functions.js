@@ -63,24 +63,11 @@ function insertinput(type, placeholder){
 }
 function creation(){
 	clear();
-	str2 = "<br>I kinda like front end develoment cause you can do this";
+	str2 = "Just so you know this is all I have, It sucks!";
 	typing(str2, function(){
 		clear();
-		$('#insert').attr('style','');
-		$('body').attr('style','');
-		str3 = 'body { height: 20% }';
-		typing(str3, function(){
-			$('#typing').attr('class','h20');
-			creationdiv.removeClass('hide').css('background-color','black');
-			str4 = 'lets start with body <br> body { background: white }';
-			typing(str4, function(){
-				creationdiv.addClass('blinkwhite');
-				setTimeout(function(){
-					creationdiv.removeClass('blinkwhite');
-					creationdiv.addClass('bg-white');
-				}, 10);
-			})
-		})
+		$('.parent-center').addClass('hide');
+		$('.to').removeClass('hide');
 	});
 }
 function changecolor(val){
@@ -96,7 +83,7 @@ function IsValidImageUrl(url) {
 			$('.hero').css('background', 'url('+url+') no-repeat scroll center center / cover  rgba(0, 0, 0, 0)');
 			str = "Cool! This is amazing, right?"
 			typing(str, function(){
-				insertinput('herook');
+				insertinput('herook2');
 			})
 		}
 	});
@@ -147,8 +134,7 @@ function reveal(){
 	clear();
 	$('.to').removeClass('hide');
 	$('.parent-center,#typing').removeClass('h100').addClass('h50');
-	$('.parent-center').addClass('modal');
-	$('.parent-center').removeClass('fs5').addClass('fs7');
+	$('.parent-center').removeClass('fs5').removeClass('h50').addClass('fs7').addClass('modal');
 	$('.transform').css('transform','none');
 	$('#insert').css('color', '#000');
 	$("<style type='text/css'> input{ color:#000;} </style>").appendTo("head");

@@ -164,15 +164,13 @@ $('body').on('keypress','input, textarea',function(e){
 					insertinput('backok');
 				});
 			});
-		}
-		else if(id == 'job'){
+		}else if(id == 'job'){
 			clear();
 			str = "Really? That sounds amazing.";
 			typing(str, function(){
 				insertfont(1);
 			});
-		}
-		else if(id == 'knock1'){
+		}else if(id == 'knock1'){
 			str = p('knockknock').knock;
 			typing(str, function(){
 				insertinput('knock2');
@@ -197,6 +195,7 @@ $('body').on('keypress','input, textarea',function(e){
 			clear();
 			IsValidImageUrl(val);
 		}
+		$(this).prop('disabled', true);
     }
 });
 
